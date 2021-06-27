@@ -10,8 +10,8 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- script: go test -timeout 60m
+  displayName: 'Run a go test'
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
