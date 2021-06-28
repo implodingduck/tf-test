@@ -1,13 +1,13 @@
 package test
 
 import (
-	"encoding/json"
 	"fmt"
 	"testing"
 
 	"github.com/gruntwork-io/terratest/modules/random"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
+	"github.com/tidwall/gjson"
 )
 
 func TestTerraformAzureAKSUnitExample(t *testing.T) {
@@ -36,11 +36,6 @@ func TestTerraformAzureAKSUnitExample(t *testing.T) {
 	terraform.RunTerraformCommand(t, terraformOptions, terraform.FormatArgs(terraformOptions, "plan", "-out="+tfPlanOutput)...)
 	terraformOptions.Vars = nil
 	planjsonstr := terraform.RunTerraformCommand(t, terraformOptions, terraform.FormatArgs(terraformOptions, "show", "-json", tfPlanOutput)...)
-	planjsonbytes := []byte(planjsonstr)
-	var raw map[string]interface{}
-	if err := json.Unmarshal(planjsonbytes, &raw); err != nil {
-		panic(err)
-	}
 
-	assert.Equal(t, float64(3), raw["planned_values"].(map[string]interface{})["root_module"].(map[string]interface{})["child_modules"].([]interface{})[0].(map[string]interface{})["resources"].([]interface{})[0].(map[string]interface{})["values"].(map[string]interface{})["default_node_pool"].([]interface{})[0].(map[string]interface{})["node_count"])
+	assert.Equal(t, float64(3), gjson.Get(planjsonstr, "planned_values.root_module.child_modules.0.resources.0.values.default_node_pool.0.node_count").Float())
 }
