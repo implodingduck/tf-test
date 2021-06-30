@@ -10,9 +10,12 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-
 - script: |
-  cd test/
-  go test -timeout 60m
-displayName: 'Run a go test'
+    cd terraform/
+    terraform init
+  displayName: 'Pre run terraform init'
+- script: |
+    cd test/
+    go test -timeout 60m
+  displayName: 'Run a go test'
 
