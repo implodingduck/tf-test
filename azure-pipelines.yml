@@ -10,10 +10,6 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: |
-  cd terraform/
-  terraform init
-displayName: 'Pre run terraform init'
 
 - script: |
   cd test/
