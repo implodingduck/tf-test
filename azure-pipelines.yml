@@ -14,8 +14,20 @@ steps:
     cd terraform/
     terraform init
   displayName: 'Pre run terraform init'
-- script: |
-    cd test/
-    go test -timeout 60m
+
+- task: AzureCLI@2
+  displayName: "Terraform Init"
+  inputs:
+    azureSubscription: ARM_SUBSCRIPTION
+    scriptType: bash
+    addSpnToEnvironment: true
+    scriptLocation: inlineScript
+    inlineScript: |
+      echo "starting..."
+      export ARM_CLIENT_ID=$servicePrincipalId
+      export ARM_CLIENT_SECRET=$servicePrincipalKey
+      export ARM_TENANT_ID=$tenantId
+      cd test/
+      go test -timeout 60m
   displayName: 'Run a go test'
 
