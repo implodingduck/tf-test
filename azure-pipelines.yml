@@ -16,7 +16,6 @@ steps:
   displayName: 'Pre run terraform init'
 
 - task: AzureCLI@2
-  displayName: "Terraform Init"
   inputs:
     azureSubscription: ARM_SUBSCRIPTION
     scriptType: bash
