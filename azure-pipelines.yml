@@ -32,3 +32,53 @@ steps:
       go test -timeout 60m
   displayName: 'Run a go test'
 
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: ARM_SUBSCRIPTION
+    scriptType: bash
+    addSpnToEnvironment: true
+    scriptLocation: inlineScript
+    inlineScript: |
+      echo "starting..."
+      export ARM_SUBSCRIPTION_ID=$(az account show --query 'id' --output tsv)
+      export subscription_id=$ARM_SUBSCRIPTION_ID
+      export ARM_CLIENT_ID=$servicePrincipalId
+      export ARM_CLIENT_SECRET=$servicePrincipalKey
+      export ARM_TENANT_ID=$tenantId
+      cd terraform/
+      terraform plan -out=theplan
+      terraform apply -auto-approve theplan
+  displayName: 'Run Terraform'
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: ARM_SUBSCRIPTION
+    scriptType: bash
+    addSpnToEnvironment: true
+    scriptLocation: inlineScript
+    inlineScript: |
+      echo "starting..."
+      export ARM_SUBSCRIPTION_ID=$(az account show --query 'id' --output tsv)
+      export subscription_id=$ARM_SUBSCRIPTION_ID
+      export ARM_CLIENT_ID=$servicePrincipalId
+      export ARM_CLIENT_SECRET=$servicePrincipalKey
+      export ARM_TENANT_ID=$tenantId
+      echo TODO
+  displayName: 'Validate AKS'
+
+  - task: AzureCLI@2
+  inputs:
+    azureSubscription: ARM_SUBSCRIPTION
+    scriptType: bash
+    addSpnToEnvironment: true
+    scriptLocation: inlineScript
+    inlineScript: |
+      echo "starting..."
+      export ARM_SUBSCRIPTION_ID=$(az account show --query 'id' --output tsv)
+      export subscription_id=$ARM_SUBSCRIPTION_ID
+      export ARM_CLIENT_ID=$servicePrincipalId
+      export ARM_CLIENT_SECRET=$servicePrincipalKey
+      export ARM_TENANT_ID=$tenantId
+      cd terraform/
+      terraform destroy
+  displayName: 'Destroy All the Things'
