@@ -66,7 +66,7 @@ steps:
       echo TODO
   displayName: 'Validate AKS'
 
-  - task: AzureCLI@2
+- task: AzureCLI@2
   inputs:
     azureSubscription: ARM_SUBSCRIPTION
     scriptType: bash
@@ -81,4 +81,4 @@ steps:
       export ARM_TENANT_ID=$tenantId
       cd terraform/
       terraform destroy
-  displayName: 'Destroy All the Things'
+displayName: 'Destroy All the Things'
