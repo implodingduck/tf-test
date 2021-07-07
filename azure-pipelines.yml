@@ -33,6 +33,10 @@ steps:
       export ARM_TENANT_ID=$tenantId
       cd test/
       go test -timeout 60m
+  env:
+    TF_VAR_cluster_name: $(TF_VAR_cluster_name)
+    TF_VAR_location: $(TF_VAR_location)
+    TF_VAR_node_count: $(TF_VAR_node_count)
   displayName: 'Run a go test'
 
 - task: AzureCLI@2
@@ -51,6 +55,10 @@ steps:
       cd terraform/
       terraform plan -out=theplan
       terraform apply -auto-approve theplan
+  env:
+    TF_VAR_cluster_name: $(TF_VAR_cluster_name)
+    TF_VAR_location: $(TF_VAR_location)
+    TF_VAR_node_count: $(TF_VAR_node_count)
   displayName: 'Run Terraform'
 
 - task: AzureCLI@2
@@ -67,6 +75,10 @@ steps:
       export ARM_CLIENT_SECRET=$servicePrincipalKey
       export ARM_TENANT_ID=$tenantId
       echo TODO
+  env:
+    TF_VAR_cluster_name: $(TF_VAR_cluster_name)
+    TF_VAR_location: $(TF_VAR_location)
+    TF_VAR_node_count: $(TF_VAR_node_count)
   displayName: 'Validate AKS'
 
 - task: AzureCLI@2
@@ -84,4 +96,8 @@ steps:
       export ARM_TENANT_ID=$tenantId
       cd terraform/
       terraform destroy
+  env:
+    TF_VAR_cluster_name: $(TF_VAR_cluster_name)
+    TF_VAR_location: $(TF_VAR_location)
+    TF_VAR_node_count: $(TF_VAR_node_count)
   displayName: 'Destroy All the Things'
