@@ -81,4 +81,4 @@ steps:
       export ARM_TENANT_ID=$tenantId
       cd terraform/
       terraform destroy
-displayName: 'Destroy All the Things'
+  displayName: 'Destroy All the Things'
