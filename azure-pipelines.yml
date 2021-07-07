@@ -36,7 +36,6 @@ steps:
   env:
     TF_VAR_cluster_name: $(TF_VAR_cluster_name)
     TF_VAR_location: $(TF_VAR_location)
-    TF_VAR_node_count: $(TF_VAR_node_count)
   displayName: 'Run a go test'
 
 - task: AzureCLI@2
@@ -58,7 +57,6 @@ steps:
   env:
     TF_VAR_cluster_name: $(TF_VAR_cluster_name)
     TF_VAR_location: $(TF_VAR_location)
-    TF_VAR_node_count: $(TF_VAR_node_count)
   displayName: 'Run Terraform'
 
 - task: AzureCLI@2
@@ -78,7 +76,6 @@ steps:
   env:
     TF_VAR_cluster_name: $(TF_VAR_cluster_name)
     TF_VAR_location: $(TF_VAR_location)
-    TF_VAR_node_count: $(TF_VAR_node_count)
   displayName: 'Validate AKS'
 
 - task: AzureCLI@2
@@ -99,5 +96,4 @@ steps:
   env:
     TF_VAR_cluster_name: $(TF_VAR_cluster_name)
     TF_VAR_location: $(TF_VAR_location)
-    TF_VAR_node_count: $(TF_VAR_node_count)
   displayName: 'Destroy All the Things'
