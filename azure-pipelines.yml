@@ -92,7 +92,7 @@ steps:
       export ARM_CLIENT_SECRET=$servicePrincipalKey
       export ARM_TENANT_ID=$tenantId
       cd terraform/
-      terraform destroy
+      terraform destroy -auto-approve
   env:
     TF_VAR_cluster_name: $(TF_VAR_cluster_name)
     TF_VAR_location: $(TF_VAR_location)
