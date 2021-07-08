@@ -73,7 +73,7 @@ steps:
       export ARM_CLIENT_SECRET=$servicePrincipalKey
       export ARM_TENANT_ID=$tenantId
       az aks get-credentials --name $TF_VAR_cluster_name --resource-group rg-aks-$TF_VAR_cluster_name-eastus
-      kubectl get pods
+      kubectl cluster-info
   env:
     TF_VAR_cluster_name: $(TF_VAR_cluster_name)
     TF_VAR_location: $(TF_VAR_location)
